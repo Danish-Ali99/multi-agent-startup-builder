@@ -42,6 +42,37 @@ def _set_idea(text: str) -> None:
     st.session_state["idea_text"] = text
 
 
+def validate_idea(idea: str) -> tuple[bool, str]:
+    """Heuristic check that the input is actually a startup idea.
+
+    Rejects single words, greetings, gibberish, profanity-only inputs, and
+    very short text — without spending an LLM call on them.
+    """
+    s = idea.strip()
+
+    if len(s) < 20:
+        return False, "Too short — describe the idea in at least one sentence: what it does, and who it's for."
+
+    words = s.split()
+    if len(words) < 4:
+        return False, "Try a fuller description — what does the product do, and for whom?"
+
+    if len(set(s.lower().replace(" ", ""))) < 6:
+        return False, "That doesn't look like a real idea. Try describing an actual product or service."
+
+    first_word = words[0].lower().rstrip(",.;:!?")
+    bad_starts = {
+        "wtf", "lol", "idk", "hello", "hi", "hey", "yo", "sup",
+        "test", "testing", "asdf", "qwerty",
+        "fuck", "shit", "damn",
+        "ok", "okay", "yes", "no", "maybe", "hmm", "um",
+    }
+    if first_word in bad_starts:
+        return False, "That doesn't look like a startup idea — try describing a product, service, or business concept. Tap a sample on the right →"
+
+    return True, ""
+
+
 st.set_page_config(
     page_title="Multi-Agent Startup Builder",
     page_icon="🚀",
@@ -137,6 +168,11 @@ if run:
     idea = (idea or "").strip()
     if not idea:
         st.error("Please describe your startup idea.")
+        st.stop()
+
+    is_valid, validation_error = validate_idea(idea)
+    if not is_valid:
+        st.warning(f"⚠️ {validation_error}")
         st.stop()
 
     if provider == "Groq (free)":
