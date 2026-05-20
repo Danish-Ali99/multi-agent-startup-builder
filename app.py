@@ -25,18 +25,41 @@ st.caption(
 
 with st.sidebar:
     st.header("Configuration")
-    api_key = st.text_input(
-        "OpenAI API Key",
-        value=os.getenv("OPENAI_API_KEY", ""),
-        type="password",
-        help="Kept only in this session.",
-    )
-    model = st.selectbox(
-        "Model",
-        ["gpt-4o-mini", "gpt-4o", "gpt-4.1-mini"],
+
+    provider = st.selectbox(
+        "Provider",
+        ["Groq (free)", "OpenAI"],
         index=0,
-        help="gpt-4o-mini is fast and cheap. gpt-4o is sharper.",
+        help="Groq is free. OpenAI requires billing.",
     )
+
+    if provider == "Groq (free)":
+        api_key = st.text_input(
+            "Groq API Key",
+            value=os.getenv("GROQ_API_KEY", ""),
+            type="password",
+            help="Get a free key at console.groq.com — no credit card.",
+        )
+        model = st.selectbox(
+            "Model",
+            ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "gemma2-9b-it"],
+            index=0,
+            help="llama-3.3-70b is highest quality; 8b is faster.",
+        )
+    else:
+        api_key = st.text_input(
+            "OpenAI API Key",
+            value=os.getenv("OPENAI_API_KEY", ""),
+            type="password",
+            help="Kept only in this session.",
+        )
+        model = st.selectbox(
+            "Model",
+            ["gpt-4o-mini", "gpt-4o", "gpt-4.1-mini"],
+            index=0,
+            help="gpt-4o-mini is fast and cheap. gpt-4o is sharper.",
+        )
+
     st.markdown("---")
     st.markdown("**Architecture**")
     st.code(
@@ -65,14 +88,20 @@ run = col_run.button("Generate business plan", type="primary", use_container_wid
 
 if run:
     if not api_key:
-        st.error("Please provide your OpenAI API key in the sidebar.")
+        st.error(f"Please provide your {provider.split()[0]} API key in the sidebar.")
         st.stop()
     if not idea.strip():
         st.error("Please describe your startup idea.")
         st.stop()
 
-    os.environ["OPENAI_API_KEY"] = api_key
-    os.environ["OPENAI_MODEL"] = model
+    if provider == "Groq (free)":
+        os.environ["LLM_PROVIDER"] = "groq"
+        os.environ["GROQ_API_KEY"] = api_key
+        os.environ["GROQ_MODEL"] = model
+    else:
+        os.environ["LLM_PROVIDER"] = "openai"
+        os.environ["OPENAI_API_KEY"] = api_key
+        os.environ["OPENAI_MODEL"] = model
 
     initial: StartupState = {
         "startup_idea": idea,

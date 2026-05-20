@@ -1,8 +1,8 @@
 # Multi-Agent Startup Builder
 
 A multi-agent AI system that turns a one-line startup idea into a full,
-investor-ready business plan. Built with **LangGraph**, **OpenAI**, and
-**Streamlit**.
+investor-ready business plan. Built with **LangGraph**, **LangChain**, and
+**Streamlit** — pluggable LLM backend (Groq or OpenAI).
 
 Five specialized agents — **CEO, Marketing, Finance, Tech**, and a final
 **Synthesizer** — collaborate in a directed graph. The CEO sets the strategic
@@ -30,17 +30,19 @@ See [`example_output.md`](example_output.md) for a full sample run.
   not a hard-coded chain)
 - **Streaming UI** that shows each agent's progress as it completes
 - **Markdown export** of the final business plan
-- **Pluggable model** — switch between gpt-4o-mini, gpt-4o, or gpt-4.1-mini
+- **Pluggable LLM backend** — switch between Groq (free) and OpenAI in a
+  dropdown; works with `llama-3.3-70b`, `gpt-4o`, and others
 
 ## Tech Stack
 
-| Layer         | Tool                          |
-| ------------- | ----------------------------- |
-| Orchestration | LangGraph                     |
-| LLM           | OpenAI (GPT-4o / 4o-mini)     |
-| Framework     | LangChain                     |
-| UI            | Streamlit                     |
-| Lang          | Python 3.10+                  |
+| Layer         | Tool                                              |
+| ------------- | ------------------------------------------------- |
+| Orchestration | LangGraph                                         |
+| LLM (free)    | Groq — `llama-3.3-70b-versatile`                  |
+| LLM (paid)    | OpenAI — `gpt-4o` / `gpt-4o-mini`                 |
+| Framework     | LangChain                                         |
+| UI            | Streamlit                                         |
+| Lang          | Python 3.10+                                      |
 
 ## Quickstart
 
