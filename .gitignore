@@ -6,8 +6,10 @@ __pycache__/
 venv/
 env/
 .env
+.env.local
 .DS_Store
 .streamlit/secrets.toml
+samples/
 *.log
 .idea/
 .vscode/

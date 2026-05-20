@@ -10,6 +10,11 @@ foundation, then the three specialist agents run **in parallel**, each
 building on the CEO's analysis. A synthesizer agent merges their outputs
 into a single polished executive brief.
 
+> **🚀 Try it now** — runs on Groq's free tier (`llama-3.3-70b`), no credit card.
+> Get a free key at [console.groq.com](https://console.groq.com), paste it into
+> the sidebar of a [deployed copy](#deploy-your-own-in-2-minutes), or run it
+> locally with the [Quickstart](#quickstart) below.
+
 ---
 
 ## Architecture
@@ -42,27 +47,46 @@ See [`example_output.md`](example_output.md) for a full sample run.
 | LLM (paid)    | OpenAI — `gpt-4o` / `gpt-4o-mini`                 |
 | Framework     | LangChain                                         |
 | UI            | Streamlit                                         |
-| Lang          | Python 3.10+                                      |
+| Lang          | Python 3.9+                                       |
 
 ## Quickstart
 
 ~~~bash
-git clone https://github.com/<your-username>/multi-agent-startup-builder.git
+git clone https://github.com/Danish-Ali99/multi-agent-startup-builder.git
 cd multi-agent-startup-builder
 
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-cp .env.example .env
-# edit .env and add your OPENAI_API_KEY
-
 streamlit run app.py
 ~~~
 
-Then open http://localhost:8501.
+Open http://localhost:8501, paste a Groq API key into the sidebar
+(free at [console.groq.com](https://console.groq.com)), pick a sample idea,
+and click **Generate business plan**.
 
-You can also drop your API key directly into the sidebar instead of using
-a `.env` file.
+You can also drop your key in a `.env` file — `cp .env.example .env` and edit.
+
+## Deploy your own in 2 minutes
+
+[Streamlit Community Cloud](https://share.streamlit.io) hosts public Streamlit
+apps free.
+
+1. Sign in to [share.streamlit.io](https://share.streamlit.io) with GitHub.
+2. Click **New app** → pick this repo → set **Main file path** to `app.py`.
+3. (Optional) Under **Advanced settings → Secrets**, paste:
+
+   ~~~toml
+   GROQ_API_KEY = "gsk_your_key_here"
+   ~~~
+
+   This pre-fills the sidebar so visitors don't need their own key. If you
+   skip it, visitors paste their own key in the sidebar.
+
+4. Click **Deploy**. After ~2 minutes you get a URL like
+   `https://multi-agent-startup-builder.streamlit.app`.
+
+Drop that URL on your resume next to the GitHub link.
 
 ## Example
 
