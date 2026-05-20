@@ -76,9 +76,9 @@ with st.sidebar:
         )
         model = st.selectbox(
             "Model",
-            ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "gemma2-9b-it"],
+            ["llama-3.1-8b-instant", "llama-3.3-70b-versatile", "gemma2-9b-it"],
             index=0,
-            help="llama-3.3-70b: best quality. 8b: fastest. gemma2: balanced.",
+            help="8b-instant: fastest (~5s total run). 70b-versatile: higher quality but ~5x slower.",
         )
     else:
         api_key = st.text_input(
