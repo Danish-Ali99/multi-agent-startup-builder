@@ -1,4 +1,18 @@
+---
+title: Multi-Agent Startup Builder
+emoji: 🚀
+colorFrom: red
+colorTo: yellow
+sdk: streamlit
+app_file: app.py
+pinned: false
+license: mit
+short_description: Turns a startup idea into an investor-ready plan.
+---
+
 # Multi-Agent Startup Builder
+
+🟢 **[Try the live demo on Hugging Face Spaces →](https://huggingface.co/spaces/Danish-Ali99/multi-agent-startup-builder)**
 
 A multi-agent AI system that turns a one-line startup idea into a full,
 investor-ready business plan. Built with **LangGraph**, **LangChain**, and
