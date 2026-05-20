@@ -10,6 +10,7 @@ env/
 .DS_Store
 .streamlit/secrets.toml
 samples/
+.claude/
 *.log
 .idea/
 .vscode/

@@ -1,11 +1,8 @@
 ---
 title: Multi-Agent Startup Builder
 emoji: 🚀
-colorFrom: red
-colorTo: yellow
 sdk: streamlit
 app_file: app.py
-pinned: false
 license: mit
 short_description: Turns a startup idea into an investor-ready plan.
 ---
