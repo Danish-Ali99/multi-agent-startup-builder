@@ -14,27 +14,14 @@ into a single polished executive brief.
 
 ## Architecture
 
-~~~
-                ┌──────────────┐
-                │  CEO Agent   │   ← strategic foundation
-                └──────┬───────┘
-       ┌──────────────┼──────────────┐
-       ▼              ▼              ▼
-┌────────────┐  ┌────────────┐  ┌────────────┐
-│ Marketing  │  │  Finance   │  │   Tech     │   ← parallel branches
-└────┬───────┘  └─────┬──────┘  └─────┬──────┘
-     └──────────────┐ │ ┌─────────────┘
-                    ▼ ▼ ▼
-              ┌────────────────┐
-              │ Synthesizer    │   ← merges into executive brief
-              └────────┬───────┘
-                       ▼
-                 Final Report
-~~~
+![Architecture diagram](architecture.png)
 
-The graph is a classic **fan-out / fan-in** pattern. LangGraph schedules the
-three specialist agents concurrently and only triggers the synthesizer once
-all three have written their results to shared state.
+The graph is a classic **fan-out / fan-in** pattern. The CEO node runs first
+and seeds the shared state. LangGraph then schedules Marketing, Finance, and
+Tech **concurrently** and only triggers the Synthesizer once all three have
+written their results back to state.
+
+See [`example_output.md`](example_output.md) for a full sample run.
 
 ## Features
 
